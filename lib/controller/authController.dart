@@ -135,13 +135,11 @@ void login(BuildContext context, String email, String password) async {
             print(response.body);
             String message = responseBody['message'];
             alert(context, 'success', message);
-            Future.delayed(Duration(seconds: 1), () {
-              Navigator.of(context).pop();
+            await Future.delayed(Duration(seconds: 1));
+            Navigator.of(context).pop();
+            await Get.to(() => VerifyOtp(email: email));
 
-              Get.to(() => VerifyOtp(email: email));
-            });
             final prefs = await SharedPreferences.getInstance();
-
             prefs.setString('email', email);
             prefs.setString('password', password);
           } else {
@@ -216,16 +214,14 @@ verifyEmail(BuildContext context, String token, String email) async {
       // print('Raw Response Body: ${response.body}');
       final Map<String, dynamic> responseBody = json.decode(response.body);
       if (response.statusCode == 200) {
-        if (kDebugMode) {
-          print('Raw Response Body: ${response.body}');
+        
+        print('Raw Response Body: ${response.body}');
           String token = responseBody['data']['token'];
 
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('token', token);
-          print(token);
-          Get.to(CreateWaletPin());
-        }
         alert(context, 'success', responseBody['message']);
+        Get.to(CreateWaletPin());
       } else {
         final message = responseBody['message'];
         Get.back();
