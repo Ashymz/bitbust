@@ -79,10 +79,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        SizedBox(height: 150.0),
+        SizedBox(height: 100.0),
         Image.asset(image, height: 360.0),
         Padding(
-          padding: const EdgeInsets.all(60),
+          padding: const EdgeInsets.fromLTRB(0,0,0,0),
           child: Text(
             description,
             textAlign: TextAlign.center,
